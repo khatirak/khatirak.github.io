@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - KodeWithKhatz</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            background-color: #f0f0f0;
+        }
+        header {
+            background-color: #b0b0b0;
+            color: white;
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+        }
+        header h1 {
+            color: white;
+            text-shadow: 
+                -1px -1px 0 #000,  
+                1px -1px 0 #000,
+                -1px 1px 0 #000,
+                1px 1px 0 #000;
+        }
+        nav {
+            background-color: #333;
+            width: 100%;
+            overflow: hidden;
+        }
+        nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+        nav a:hover {
+            background-color: #575757;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 1200px;
+            width: calc(100% - 40px); /* Adjust width to take full available space */
+        }
+        .box {
+            flex: 1;
+            margin: 20px;
+            padding: 20px;
+            background-color: #e0e0e0;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .last-edited {
+            font-style: italic;
+            color: #666; /* Grey color */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Kode - KodeWithKhatz</h1>
+    </header>
+    <nav>
+        <a href="home.html">Home</a>
+        <a href="kode.html">Kode</a>
+        <a href="projects.html">Projects</a>
+        <a href="blog.html">Blog</a>
+    </nav>
+    <div class="container">
+        <div class="box">
+            <p>
+                Here listed are the skills or languages I know and the classes I have taken.
+            </p>
+            <ul>
+                <li>Python</li>
+                <li>C++</li>
+                <li>Database Management: SQL, Pandas, NumPy</li>
+                <li>Data Structures and Algorithms</li>
+                <li>HTML, CSS, JS (Currently learning)</li>
+                <li>Computer Networks</li>
+                <li>Computer Systems Organisations - C(basics)</li>
+            </ul>
+            <!-- <small class="last-edited">Last Edited: 02/06/2024</small> -->
+        </div>
+        <div class="box">
+            <p>
+                Here is the list of skills or langauges I want to learn.
+            </p>
+            <ul>
+                <li>Git</li>
+                <li>Unix</li>
+                <li>Go</li>
+                <li>Swift</li>
+                <li>DevOps</li>
+                <li>Java</li>
+
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
