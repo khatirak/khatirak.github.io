@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Analysis</title>
+
+    <!-- Highlight.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/monokai-sublime.min.css">
+    <!-- Highlight.js JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    
+    <style>
+        body { 
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+        header {
+            background-color: #b0b0b0;
+            color: white;
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+        }
+        header h1 {
+            color: white;
+            text-shadow: 
+                -1px -1px 0 #000,  
+                1px -1px 0 #000,
+                -1px 1px 0 #000,
+                1px 1px 0 #000;
+        }
+        nav {
+            background-color: #333;
+            width: 100%;
+            overflow: hidden;
+        }
+        nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+        nav a:hover {
+            background-color: #575757;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            margin: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 1200px;
+            width: calc(100% - 40px); /* Adjust width to take full available space */
+        }
+        .box {
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #e0e0e0;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: left; /* Align text to the left */
+        }
+        main {
+            margin: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+        }
+        pre {
+            background-color: #23241e;
+            color: #f8f8f8;
+            border-radius: 10px;
+            white-space: pre-wrap; /* Preserve whitespace and wrap long lines */
+            overflow-x: auto; /* Add horizontal scrolling if necessary */
+        }
+        img.default {
+            width: 100%;
+            height: auto;
+            border-radius: 8px; /* Optional: make the image corners rounded */
+        }
+
+        img.small {
+            width: 30%;
+            height: auto;
+            border-radius: 8px; /* Optional: make the image corners rounded */
+        }
+
+        img.medium {
+            width: 75%;
+            height: auto;
+            border-radius: 8px; /* Optional: make the image corners rounded */
+        }
+
+        
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Password Manager - Documentation</h1>
+    </header>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="kode.html">Kode</a>
+        <a href="projects.html">Projects</a>
+        <a href="blog.html">Blog</a>
+    </nav>
+    <div class="container">
+        <div class="box">
+            <h3>Overview</h3>
+            <p>
+                This is my third summer project and it is a log analysis tool.
+            </p>
+        </div>
+        <div class="box">
+            <p> 
+                <!-- contents page -->
+                <h3>Contents</h3>
+                <ul>
+                    <li><a href="#Overview">Overview</a></li>
+                    <li><a href="#prototype-1">Prototype 1</a></li>
+                    <li><a href="#code-p1">Code - prototype 1</a></li>
+                </ul>
+            </p>
+        </div>
+        <div class="box" id="Overview">
+            <h3>Overview</h3>
+            <p>
+                <li>User authentication (login and registration) - password hashing</li>
+                <li>Password storage (encryption and decryption) - SQL (database)</li>
+                <li>Password generation</li>
+                <li>Password retrieval - cryptography</li>
+                <li>User interface for managing password - Tkinter</li>
+            </p>
+            <h3>Libraries</h3>
+            <p>
+                I am going to use Tkinter as the UI as I have not used it in a while and I want to refresh myself with it.<br> I just learnt SQL in depth this past semester and want to use it as my database in a practical scenario. <br>I am going to use the cryptography libraries, which is new to me, in hopes it will be simple to start off with as I am a beginner.
+            </p>
+        </div>
+        <div class="box" id="database-design">
+            <h3>Database Design</h3>
+            
+            
+        </div>
+        <div class="box" id="prototype-1">
+            <h3>Prototype 1</h3>
+            <p>
+                Now I am going to focus on the login and registration for users.
+                The sketch below is a rough sketch of what I want my application to look like.
+            </p>
+            <h4>Documentation</h4>
+            <p>
+                
+            </p>
+        </div>
+        </div>
+</body>
+</html>
