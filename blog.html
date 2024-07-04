@@ -45,13 +45,40 @@
         nav a:hover {
             background-color: #575757;
         }
-        main {
+        .container {
+            display: flex;
+            flex-direction: column;
             margin: 20px;
             padding: 20px;
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 800px;
+            max-width: 1200px;
+            width: calc(100% - 40px); /* Adjust width to take full available space */
+        }
+        .box {
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #e0e0e0;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: left; /* Align text to the left */
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        li.completed {
+            text-decoration: line-through;
+        }
+        .checklist {
+            margin: 0;
+            padding: 0;
         }
     </style>
 </head>
@@ -65,10 +92,57 @@
         <a href="projects.html">Projects</a>
         <a href="blog.html">Blog</a>
     </nav>
-    <main>
-        <p>
-            Here is where I will be blogging.
-        </p>
-    </main>
+
+    <div class="container">
+        <div class="box">
+            <h2>To-Do List</h2>
+            <ul id="checklist" class="checklist">
+                <li><input type="checkbox"> AD blog</li>
+                <li><input type="checkbox"> Paris blog</li>
+                <li><input type="checkbox"> NYC blog</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('#checklist input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                let listItem = this.parentNode;
+                let checklist = document.getElementById('checklist');
+
+                if (this.checked) {
+                    listItem.classList.add('completed');
+                    checklist.appendChild(listItem);
+                } else {
+                    listItem.classList.remove('completed');
+                    checklist.insertBefore(listItem, checklist.childNodes[0]);
+                }
+            });
+        });
+    </script>
+
+    <div class="container">
+        <div class = "box">
+            <h1>Abu Dhabi - life as an International student</h1>
+            <p>
+                
+            </p>
+        </div>
+        <div class = "box">
+            <h1>Paris - Spring'24 study abroad</h1>
+            <p>
+                This was my first semester abroad in my sophomore year and it was in NYU Paris. I had the chance to stay in Abu Dhabi 
+                or go to Paris. Despite me living in the UK, I had never gone to Europe and it looked like a new amazing experience so I applied and was accepted. 
+                At first, I was quite comfortable with going but soon realised that it was very different to my NYU AD experience. I was not living on campus and I had to cook, get groceries, 
+                properly budget which was not a concern in AD. It was also my first time living in a non-English speaking country 
+            </p>
+        </div>
+        <div class = "box">
+            <h1>NYC - Fall'24 study abroad</h1>
+            <p>
+                
+            </p>
+        </div>
+    </div>
 </body>
 </html>
