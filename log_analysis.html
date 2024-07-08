@@ -121,6 +121,22 @@
         <div class="box">
             <h3>Overview</h3>
             <p>
+                This is my third summer project and it is a log analysis tool.
+            </p>
+        </div>
+        <div class="box">
+            <p> 
+                <!-- contents page -->
+                <h3>Contents</h3>
+                <ul>
+                    <li><a href="#prototype-1">Prototype 1</a></li>
+                    <li><a href="#overview">Overview</a></li>
+                </ul>
+            </p>
+        </div>
+        <div class="box" id="Overview">
+            <h3>Overview</h3>
+            <p>
                 This is my third summer project and it is a log analysis tool.<br>
                 To be completely honest, I was not sure what a log analysis tool even does until I did some more research. 
                 It is simply a tool that helps organisations and individuals to make sense of the large amount of data created by their systems, apps, and networks.<br>
@@ -137,45 +153,39 @@
                     <li>log parsing and normalisation, search & query</li>
                     <li>visualisation & reporting, alerting</li>
                 </ul>
-                I wanted a better idea of what log analysis tools do and so I searched for a few popular ones like: ELK stack, Splunk, Graylog etc.
-            </p>
-        </div>
-        <div class="box">
-            <p> 
-                <!-- contents page -->
-                <h3>Contents</h3>
-                <ul>
-                    <li><a href="#Overview">Overview</a></li>
-                    <li><a href="#prototype-1">Prototype 1</a></li>
-                    <li><a href="#code-p1">Code - prototype 1</a></li>
-                </ul>
-            </p>
-        </div>
-        <div class="box" id="Overview">
-            <h3>Overview</h3>
-            <p>
-                <li>User authentication (login and registration) - password hashing</li>
-                <li>Password storage (encryption and decryption) - SQL (database)</li>
-                <li>Password generation</li>
-                <li>Password retrieval - cryptography</li>
-                <li>User interface for managing password - Tkinter</li>
+                I wanted a better idea of what log analysis tools do and so I searched for a few popular ones like: ELK stack, Splunk, Graylog etc.<br>
+                After some research - I got a better idea on what a log analysis tool was and now I wanted to focus on a kind of tool that I could implement on my own device and have it be usable on other devices.
             </p>
             <h3>Libraries</h3>
             <p>
-
+                So far, I am planning to use pandas for data collection and matplot for presenting the data but this may change.
             </p>
         </div>
-        <div class="box" id="database-design">
-            <h3></h3>
-            
-            
+        <div class="box">
+            <h3>Plan</h3>
+            <p>
+                After my research, I wanted to test out a particular log on my device and go forth.
+                I am going to use my access log, and I want to first use the last 10 logs and analyse them and then progress to doing real-time analysis.
+                <br>
+                The following is a screenshot of the last 10 logs of my access log from my device. As we can see, we have a solid structure on what the data consists.
+                <img src = "l10_log.png" class = "default">
+                We have a particular order of the:<br>
+                <pre><code>
+host - date/time - method - url- status - size - message - details
+                </code></pre>
+                I am going to use a function to have the lines parsed using the compile method in the re library. It uses a regular expression (regex) to extract specific components of the log entry then have it returned in dictionary format.
+                <pre><code>
+log_pattern = re.compile(r'(?P< host>[^\s]+) - - \[(?P< datetime>[^\]]+)\] "(?P< method>\w+) (?P< url>[^\s]+) HTTP/[^\"]+" (?P< status>\d+) (?P< size>\d+) (?P< message>[^\s]+) (?P< detail>[^\s]+)')               
+                </code></pre>
+                With the code above and provided, we can collect the details like the first part gets the host as long as there is a sequence of non-whitespace characters. This is then followed by the '- -' which matches the string in the logs and is then followed by
+                "\[(?P< datetime>[^\]]+)\]" to capture what is enclosed in the square brackets - the data and time.
+                <br>
+                We then use the match method to match the pattern to the beginning of the given string. If there is a match, a dictionary is returned with the information about the data as the keys - else None is returned.
+            </p>
         </div>
         <div class="box" id="prototype-1">
             <h3>Prototype 1</h3>
-            <p>
-                Now I am going to focus on the login and registration for users.
-                The sketch below is a rough sketch of what I want my application to look like.
-            </p>
+            
             <h4>Documentation</h4>
             <p>
                 
