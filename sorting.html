@@ -121,18 +121,6 @@
     </nav>
     <div class="container">
         <div class="box">
-            <p> 
-                <!-- contents page -->
-                <h3>Contents</h3>
-                <ul>
-                    <li><a href="#Overview">Overview</a></li>
-                    <li><a href="#prototype-1">Prototype 1</a></li>
-                    <li><a href="#code-p1">Code - prototype 1</a></li>
-                </ul>
-            </p>
-        </div>
-        <div class="box">
-            <h3>Overview</h3>
             <p>
                 This is my fourth summer project which is a GUI for sorting algorithms. I aim to work on the following skills:<br>
                 <ul>
@@ -143,146 +131,66 @@
                 </ul>
             </p>
         </div>
-        
+        <div class="box">
+            <p> 
+                <!-- contents page -->
+                <h3>Contents</h3>
+                <ul>
+                    <li><a href="#Overview">Overview</a></li>
+                    <li><a href="#bubble">Bubble Sort</a></li>
+                    <li><a href="#merge">Merge Sort</a></li>
+                    <li><a href="#insertion">Insertion Sort</a></li>
+                    <li><a href="#quick">Quick Sort</a></li>
+                    <li><a href="#selection">Selection Sort</a></li>
+                </ul>
+            </p>
+        </div>
         <div class="box" id="Overview">
             <h3>Overview</h3>
             <p>
-                <li>User authentication (login and registration) - password hashing</li>
-                <li>Password storage (encryption and decryption) - SQL (database)</li>
-                <li>Password generation</li>
-                <li>Password retrieval - cryptography</li>
-                <li>User interface for managing password - Tkinter</li>
+                <li>Pick the sorting algorithm</li>
+                <li>Have the start button, have a slider for speed</li>
+                <li>Have it be presented as bar graph style</li>
+                <li>Maybe: have books with unique letters and sort that visually </li>
+                
             </p>
             <h3>Libraries</h3>
             <p>
-                I am going to use Tkinter as the UI as I have not used it in a while and I want to refresh myself with it.<br> I just learnt SQL in depth this past semester and want to use it as my database in a practical scenario. <br>I am going to use the cryptography libraries, which is new to me, in hopes it will be simple to start off with as I am a beginner.
+                I am going to use PyGame as the UI as I have not used it in a while and I want to refresh myself with it.<br> I also want to use Time for speed. 
+            </p>
+            <h3>Sorting Algorithms</h3>
+            <p>
+                I want to use the following sorting algorithms:
+                <li>bubble sort</li>
+                <li>merge sort</li>
+                <li>insertion sort</li>
+                <li>quick sort</li>
+                <li>selection sort</li>
             </p>
         </div>
-        <div class="box" id="database-design">
-            <h3>Database Design</h3>
+    
+        <div class="box" id="bubble">
+            <h3>Bubble Sort</h3>
             <p>
-                I need a database to store the usernames, passwords, and website. <br>For each account, there can be many usernames for a website but the usernames must be unique of course. <br>
-                I want checks to ensure that no two usernames for a website are the same and I also want to add a feature that allows the username or password to be updated.<br>
-                Below is an ER diagram to show the database structure.
+                Known as the easiest sorting algorithm, we are going to start off with the bubble sort as our first algorithm. 
+                Simply going in order, we swap everytime we have a value smaller than the value prior (ascending).
             </p>
-            <img src="password_manager_db.jpeg" class = "default">
-            <p>The following is the code for the database. This constraint ensures that each combination of user_id, website, and username is unique, preventing duplicate usernames for the same website under the same user. </p>
-            <pre><code class="language-python">
-conn = sqlite3.connect('password_manager.db')
-c = conn.cursor()
-
-# Create tables
-c.execute('''CREATE TABLE IF NOT EXISTS users (
-                id INTEGER PRIMARY KEY,
-                username TEXT UNIQUE,
-                password BLOB)''')
-
-c.execute('''CREATE TABLE IF NOT EXISTS passwords (
-                id INTEGER PRIMARY KEY,
-                user_id INTEGER,
-                website TEXT,
-                username TEXT,
-                password BLOB,
-                FOREIGN KEY(user_id) REFERENCES users(id),
-                UNIQUE(user_id, website, username))''')
-
-conn.commit()
-            </code></pre>
         </div>
-        <div class="box" id="prototype-1">
-            <h3>Prototype 1</h3>
-            <p>
-                Now I am going to focus on the login and registration for users.
-                The sketch below is a rough sketch of what I want my application to look like.
-            </p>
-            <img src="web_design.jpeg" class="default">
-            <p>
-                I am going to have 3 pages which are shown above, and for my first prototype, I will have the messageboc module of Tkinter 
-                to have the success/failure messages. 
-            </p>
-            <h4>
-                Login Page
-            </h4>
-            <p>
-                Functions needed:
-            </p>
-            <li>
-                Register user: successful registration or user already exists 
-            </li>
-            <li>
-                Login user: success login (go to 'save password page') or invalid credentials
-            </li>
-            <h4>
-                Save Password Page
-            </h4>
-            <p>
-                Functions needed:
-            </p>
-            <li>
-                Register password: successful save or details already exist
-            </li>
-            <li>
-                My Password: go to password screen
-            </li>
-            <li>
-                Generate: have password generated & have successful message
-            </li>
-            <h4>
-                Show Password Page
-            </h4>
-            <p>
-                Functions needed:
-            </p>
-            <li>
-                update or delete password stored
-            </li>
-            <h4>Documentation</h4>
-            <p>
-                I will have two functions for the registration where one is to retrieve details from what the user has
-                inputted and one to check the db to see if that user exists or not.<br>
-                When the user is registering, I will use the following code to input the registration details to my database. If 
-                successful, I will return True and else, return False.
-                <pre><code class= "language-python">
-def register_user(username, password):
-hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-# bcrypt.gensalt - This generates a salt using the gensalt() function from the bcrypt library. A salt is a random value added to the password before hashing 
-# to ensure that the same password will result in different hashes each time, improving security by preventing dictionary and rainbow table attacks.
-
-# bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()):
-# This hashes the password using the hashpw() function from the bcrypt library.
-# The function takes two arguments: the encoded password and the salt.
-# The result is a hashed version of the password that includes both the hash and the salt used.
-
-try:
-    execSQL("INSERT INTO users (username, password) VALUES (?, ?)", (username, hashed_password))
-    return True
-except sqlite3.IntegrityError:
-    return False
-                </code></pre>
-                
-                This function makes use of the bcrypt.hashpw function which allows the password of the user to be hidden when checking the database.<br>
-                <img src= "user_success.png" class = "small">
-                <img src = "hashpw.png" class="medium">
-                <img src = "pw_success.png" class="small">
-                <img src = "pw.png" class="default">
-                <img src = "pswrds.png" class="small">
-                <br>
-                As we can see, the password is not recognisable for an outer user so the encryption library was successful here.
-                Even on the password page, when SQL selects the passwords, it returns a hashed response when trying to access the password table from the database.
-                <br>
-                <img src="reg_fail.png" class="small">
-                <br>
-                Here I tested if I could register an account with the same username and I got my desired result which was an alert message.
-
-                I have yet to implement the update / delete password buttons for the display password page. I want to ensure the common functions work.
-                <br> 
-                <h4 id="code-p1">Code - prototype 1</h4>
-
-                
-                This is my final code for my first prototype.
+        <div class="box" id="merge">
+            <h3>Merge Sort</h3>
             
-            </p>
         </div>
+        <div class="box" id="insertion">
+            <h3>Insertion Sort</h3>
+            
+        </div>
+        <div class="box" id="quick">
+            <h3>Quick Sort</h3>
+            
+        </div>
+        <div class="box" id="selection">
+            <h3>Selection Sort</h3>
+            
         </div>
     </div>
 </body>

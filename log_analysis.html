@@ -129,12 +129,13 @@
                 <!-- contents page -->
                 <h3>Contents</h3>
                 <ul>
-                    <li><a href="#prototype-1">Prototype 1</a></li>
                     <li><a href="#overview">Overview</a></li>
+                    <li><a href="#prototype-1">Prototype 1</a></li>
+                    <li><a href="#code-p1">Code - Prototype 1</a></li>
                 </ul>
             </p>
         </div>
-        <div class="box" id="Overview">
+        <div class="box" id="overview">
             <h3>Overview</h3>
             <p>
                 This is my third summer project and it is a log analysis tool.<br>
@@ -165,32 +166,146 @@
             <h3>Plan</h3>
             <p>
                 After my research, I wanted to test out a particular log on my device and go forth.
-                I am going to use my access log, and I want to first use the last 10 logs and analyse them and then progress to doing real-time analysis.
-                <br>
+                I am going to use my access log, and I want to first use the last 10 logs and analyse them and then progress to doing real-time analysis. <br>
+                I then want to progress and have the code be used by any device and any log. My first prototype will focus on my personal access log and non-real-time.
+            </p>
+            
+        </div>
+        <div class="box" id="prototype-1">
+            <h3>Prototype 1</h3>
+            <p>
                 The following is a screenshot of the last 10 logs of my access log from my device. As we can see, we have a solid structure on what the data consists.
                 <img src = "l10_log.png" class = "default">
+                <h5>Parsing</h5>
                 We have a particular order of the:<br>
                 <pre><code>
 host - date/time - method - url- status - size - message - details
                 </code></pre>
                 I am going to use a function to have the lines parsed using the compile method in the re library. It uses a regular expression (regex) to extract specific components of the log entry then have it returned in dictionary format.
                 <pre><code>
-log_pattern = re.compile(r'(?P< host>[^\s]+) - - \[(?P< datetime>[^\]]+)\] "(?P< method>\w+) (?P< url>[^\s]+) HTTP/[^\"]+" (?P< status>\d+) (?P< size>\d+) (?P< message>[^\s]+) (?P< detail>[^\s]+)')               
+log_pattern = re.compile(r'(?P&lt;host&gt;[^\s]+) - - \[(?P&lt;datetime&gt;[^\]]+)\] "(?P&lt;method&gt;\w+) (?P&lt;url&gt;[^\s]+) HTTP/[^\"]+" (?P&lt;status&gt;\d+) (?P&lt;size&gt;\d+) (?P&lt;message&gt;[^\s]+) (?P&lt;detail&gt;[^\s]+)')               
                 </code></pre>
                 With the code above and provided, we can collect the details like the first part gets the host as long as there is a sequence of non-whitespace characters. This is then followed by the '- -' which matches the string in the logs and is then followed by
-                "\[(?P< datetime>[^\]]+)\]" to capture what is enclosed in the square brackets - the data and time.
+                "\[(?P&lt;datetime&gt;[^\]]+)\]" to capture what is enclosed in the square brackets - the data and time.
                 <br>
                 We then use the match method to match the pattern to the beginning of the given string. If there is a match, a dictionary is returned with the information about the data as the keys - else None is returned.
+                <h5>Log retrieval</h5>
+                Now I need to have access to the logs so I can parse through them. On my device, my access_log file is stored in a particular path that I defined and I just use normal file reading methods and have specifically the last 10 lines read and stripped. In my following code, I wanted to print the line itself, the parsed version if successful and error messages if not passed successfully (none were unsuccessful).
+                <pre><code># Process and print parsed log entries
+def process_log_lines(lines):
+    entries = []
+    for line in lines:
+        parsed_entry = parse_log_line(line)
+        if parsed_entry:
+            print(f"Parsed Entry: {parsed_entry}")
+            entries.append(parsed_entry)
+        else:
+            print(f"Failed to parse line: {line.strip()}")
+    return entries
+
+# OUPUT 
+
+# Read 10 lines from log file.
+# Line: localhost - - [07/Mar/2024:16:33:50 +0100] "POST / HTTP/1.1" 200 320 Set-Job-Attributes successful-ok
+# Parsed Entry: {'host': 'localhost', 'datetime': '07/Mar/2024:16:33:50 +0100', 'method': 'POST', 'url': '/', 'status': '200', 'size': '320', 'message': 'Set-Job-Attributes', 'detail': 'successful-ok'}
+                </code></pre>
+                I showed the first line of the ouput to just show what the dictionary looked like and how we can use it to create some sort of data frame or base to visually present the data.
+            <h5>Visualisation</h5>
+            Now I want to pick a way of visualising the data gathered - matplotlib is usually recommended but I am not the biggest fan of the visuals but I will use it in the meantime. By using pandas dataframes, I can easily collect the data and use matplotlib (plt) to graph the data. With the pasrsed data which is now in doctionary form, I can easily create a dataframe and this is what my code looks like using pandas.
+            <pre><code># Create a DataFrame from the parsed entries
+log_df = pd.DataFrame(parsed_entries)
+
+# Convert columns to appropriate data types
+log_df['datetime'] = pd.to_datetime(log_df['datetime'], format='%d/%b/%Y:%H:%M:%S %z', errors='coerce')
+log_df['status'] = log_df['status'].astype(int)
+log_df['size'] = log_df['size'].astype(int)                
+            </code></pre>
+            The following images are the datasets on plt.
+            <img src = "plt_data_transferred.png" class ="default">
+            <img src = "plt_HTTP.png" class= "default">
+            <img src = "plt_status.png" class = "default">
             </p>
+            <h4 id="code-p1">Code - Prototype 1</h4>
+            <pre><code>
+import pandas as pd
+import re
+import matplotlib.pyplot as plt
+
+# Path to the access log file on your MacBook
+log_file_path = '/private/var/log/cups/access_log'  # Update to the correct path if needed
+
+# Function to parse log lines
+def parse_log_line(line):
+    log_pattern = re.compile(
+        r'(?P&lt;host&gt;[^\s]+) - - \[(?P&lt;datetime&gt;[^\]]+)\] "(?P&lt;method&gt;\w+) (?P&lt;url&gt;[^\s]+) HTTP/[^\"]+" (?P&lt;status&gt;\d+) (?P&lt;size&gt;\d+) (?P&lt;message&gt;[^\s]+) (?P&lt;detail&gt;[^\s]+)'
+    )
+    match = log_pattern.match(line)
+    if match:
+        return match.groupdict()
+    return None
+
+
+# Read the last 10 lines from the log file
+def read_last_10_lines():
+    try:
+        with open(log_file_path, 'r') as file:
+            new_lines = file.readlines()[-10:]
+        # print(f"Read {len(new_lines)} lines from log file.")
+        return new_lines
+    except Exception as e:
+        print(f"Error reading log file: {e}")
+        return []
+
+# Process and print parsed log entries
+def process_log_lines(lines):
+    entries = []
+    for line in lines:
+        parsed_entry = parse_log_line(line)
+        if parsed_entry:
+            print(f"Parsed Entry: {parsed_entry}")
+            entries.append(parsed_entry)
+        else:
+            print(f"Failed to parse line: {line.strip()}")
+    return entries
+
+# Read and process the last 10 lines
+lines = read_last_10_lines()
+parsed_entries = process_log_lines(lines)
+
+# Create a DataFrame from the parsed entries
+log_df = pd.DataFrame(parsed_entries)
+
+# Convert columns to appropriate data types
+log_df['datetime'] = pd.to_datetime(log_df['datetime'], format='%d/%b/%Y:%H:%M:%S %z', errors='coerce')
+log_df['status'] = log_df['status'].astype(int)
+log_df['size'] = log_df['size'].astype(int)
+
+# Example analysis and visualization
+# Count of HTTP methods
+http_method_counts = log_df['method'].value_counts()
+print("HTTP Method Counts:\n", http_method_counts)
+http_method_counts.plot(kind='bar', title='HTTP Method Counts')
+plt.xlabel('HTTP Method')
+plt.ylabel('Count')
+plt.show()
+
+# Status code distribution
+status_code_counts = log_df['status'].value_counts()
+print("\nStatus Code Counts:\n", status_code_counts)
+status_code_counts.plot(kind='bar', title='Status Code Counts')
+plt.xlabel('Status Code')
+plt.ylabel('Count')
+plt.show()
+
+# Data transferred per URL
+data_transferred_per_url = log_df.groupby('url')['size'].sum()
+print("\nData Transferred Per URL:\n", data_transferred_per_url)
+data_transferred_per_url.plot(kind='bar', title='Data Transferred Per URL')
+plt.xlabel('URL')
+plt.ylabel('Data Transferred (Bytes)')
+plt.show()      
+            </code></pre>
         </div>
-        <div class="box" id="prototype-1">
-            <h3>Prototype 1</h3>
-            
-            <h4>Documentation</h4>
-            <p>
-                
-            </p>
-        </div>
-        </div>
+    </div>
 </body>
 </html>
