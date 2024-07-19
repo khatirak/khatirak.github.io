@@ -132,9 +132,13 @@
                     <li><a href="#overview">Overview</a></li>
                     <li><a href="#prototype-1">Prototype 1</a></li>
                     <li><a href="#code-p1">Code - Prototype 1</a></li>
+                    <li><a href="#prototype-2">Prototype 2</a></li>
+                    <li><a href="#code-p2">Code - Prototype 2</a></li>
                 </ul>
             </p>
         </div>
+    </div>
+    <div class="container">
         <div class="box" id="overview">
             <h3>Overview</h3>
             <p>
@@ -305,6 +309,30 @@ plt.xlabel('URL')
 plt.ylabel('Data Transferred (Bytes)')
 plt.show()      
             </code></pre>
+        </div>
+    </div>
+    <div class = "container">
+        <div class="box" id="prototype-2">
+            <h3>Prototype 2</h3>
+            <p>
+                In prototype 2, I want to focus on having my code working real time so that logs are analysed in real time. I also want to check other visualisation packages as I am not content with plt's graph.<br>
+                I also want to do more research on how I can use this tool to detect signs of compromise.
+            </p>
+            <li>Effective use of log analysis tools</li>
+            <li>Visualisation libraries</li>
+            <li>Real time</li>
+            
+            <h4>Effective use of log analysis tools</h4>
+            To make use of my log analysis tool, I needed to understand how this tool detects signs of compromise. I have a better understanding and know that by using particular logs, I can detect particular signs. 
+            <br>
+            For example: we can use logs to tell if there is a weird number of attempts to log-in.<br>By using system.log and authd.log logs from macOS, we can parse through them to get the relevant information such as timestamps, usernames, IP address, event messages etc. We then use baselines to configure what 
+            normal login patterns are like and have our defines paramters for what states a compromise, this may be a specific number of attempts or a time-frame etc. We then create alerts and have this information visualised. With all this, security measures can be improved.
+
+            <h4>Visualisation libraries</h4>
+            <h4>Real time</h4>
+
+
+            <h4 id="code-p2">Code - Prototype 2</h4>
         </div>
     </div>
 </body>
